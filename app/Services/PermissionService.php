@@ -9,7 +9,7 @@ class PermissionService extends BaseService
 
     public function index(array $filters = [])
     {
-        return Permission::filter($filters)
+        return Permission::filter($filters)->orderBy('name', 'asc')
             ->paginate();
     }
 

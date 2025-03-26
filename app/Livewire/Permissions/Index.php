@@ -12,7 +12,9 @@ class Index extends Component
 
     public string $search = '';
 
-    protected $queryString = ['search' => ['except' => '']];
+    public $selectedPermissions = [];
+
+    protected $queryString = ['search' => ['except' => ''], 'page' => ['except' => 1]];
 
     public function render()
     {

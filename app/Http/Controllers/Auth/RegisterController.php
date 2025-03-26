@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Permission;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
@@ -63,10 +65,28 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+
+        $role = Role::where('name', 'admin')->first();
+        if ($role) {
+            $user->roles()->attach($role->id);
+        }
+
+        $permissions = Permission::whereIn('name', [
+            'user_view',
+            'user_create',
+            'user_edit',
+            'user_delete'
+        ])->get();
+
+        if ($permissions->isNotEmpty()) {
+            $user->permissions()->attach($permissions->pluck('id'));
+        }
+
+        return $user;
     }
 }

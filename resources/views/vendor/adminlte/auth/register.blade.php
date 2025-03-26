@@ -13,7 +13,7 @@
     }
 @endphp
 
-@section('auth_header', __('adminlte::adminlte.register_message'))
+@section('auth_header', __('Informe seus dados para criar a conta.'))
 
 @section('auth_body')
     <form action="{{ $registerUrl }}" method="post">
@@ -58,7 +58,7 @@
         {{-- Password field --}}
         <div class="input-group mb-3">
             <input type="password" name="password" class="form-control @error('password') is-invalid @enderror"
-                placeholder="{{ __('adminlte::adminlte.password') }}">
+                placeholder="{{ __('Informe a senha') }}">
 
             <div class="input-group-append">
                 <div class="input-group-text">
@@ -77,7 +77,7 @@
         <div class="input-group mb-3">
             <input type="password" name="password_confirmation"
                 class="form-control @error('password_confirmation') is-invalid @enderror"
-                placeholder="{{ __('adminlte::adminlte.retype_password') }}">
+                placeholder="{{ __('Confirme a senha') }}">
 
             <div class="input-group-append">
                 <div class="input-group-text">
@@ -103,7 +103,7 @@
 @section('auth_footer')
     <p class="my-0">
         <a href="{{ $loginUrl }}">
-            {{ __('adminlte::adminlte.i_already_have_a_membership') }}
+            {{ __('Já possuo cadastro.') }}
         </a>
     </p>
 @stop

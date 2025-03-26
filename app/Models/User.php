@@ -101,7 +101,8 @@ class User extends Authenticatable
             $query->whereRaw("user_permissions.user_id={$this->id}");
         })
             ->filter($filters)
-            ->paginate();
+            ->orderBy('name', 'asc')
+            ->paginate(50);
     }
 
     public function scopeFilter($query, array $filters): void

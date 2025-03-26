@@ -40,14 +40,13 @@
                                     <tr>
                                         <td class="text-center">
                                             <label class="switch ">
-                                                <input type="checkbox" class="primary module-checkbox"
-                                                    name="permissions[]" value="{{ $p->id }}">
+                                                <input type="checkbox" wire:model="selectedPermissions"
+                                                    class="primary module-checkbox" name="permissions[]"
+                                                    value="{{ $p->id }}">
                                                 <span class="slider round"></span>
                                             </label>
                                         </td>
                                         <td>{{ $p->label }}</td>
-
-
                                     </tr>
                                 @empty
                                     <tr>

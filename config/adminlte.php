@@ -301,6 +301,11 @@ return [
     'menu' => [
 
         [
+            'text' => 'Dashboard',
+            'url' => 'home',
+            'icon' => 'fas fa-fw fa-tachometer-alt mr-2',
+        ],
+        [
             'text' => 'Usuários',
             'url' => 'users',
             'icon' => 'fas fa-fw fa-users mr-2',
