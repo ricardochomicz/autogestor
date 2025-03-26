@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('category_id')->constrained()->onDelete('cascade');
             $table->foreignId('brand_id')->constrained()->onDelete('cascade');
-            $table->integer('price');
+            $table->decimal('price', 10, 2);
             $table->integer('stock');
             $table->text('description');
             $table->timestamps();

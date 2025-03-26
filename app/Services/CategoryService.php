@@ -7,6 +7,13 @@ use Illuminate\Support\Facades\Auth;
 
 class CategoryService extends BaseService
 {
+    public function toSelect()
+    {
+        return Category::where('user_id', Auth::id())
+            ->orderBy('name')
+            ->get(['id', 'name']);
+    }
+
     public function index(array $filters = [])
     {
         return Category::where('user_id', Auth::id())

@@ -8,6 +8,13 @@ use Illuminate\Support\Facades\Auth;
 class BrandService extends BaseService
 {
 
+    public function toSelect()
+    {
+        return Brand::where('user_id', Auth::id())
+            ->orderBy('name')
+            ->get(['id', 'name']);
+    }
+
     public function index(array $filters = [])
     {
         return Brand::where('user_id', Auth::id())

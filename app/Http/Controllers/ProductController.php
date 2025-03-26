@@ -2,13 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\BrandService;
+use App\Services\CategoryService;
 use App\Services\ProductService;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
     public function __construct(
-        protected ProductService $productService
+        protected ProductService $productService,
+        protected CategoryService $categoryService,
+        protected BrandService $brandService
     ) {}
 
     public function index()
@@ -19,7 +23,11 @@ class ProductController extends Controller
 
     public function create()
     {
-        return view('pages.products.create');
+        $view = [
+            'categories' => $this->categoryService->toSelect(),
+            'brands' => $this->brandService->toSelect(),
+        ];
+        return view('pages.products.create', $view);
     }
 
     public function edit(int $id)
@@ -30,7 +38,13 @@ class ProductController extends Controller
                 return redirect()->route('products.index');
             }
 
-            return view('pages.products.edit', compact('product'));
+            $view = [
+                'product' => $product,
+                'categories' => $this->categoryService->toSelect(),
+                'brands' => $this->brandService->toSelect(),
+            ];
+
+            return view('pages.products.edit', $view);
         } catch (\Throwable $th) {
             //throw $th;
             flash()->option('position', 'bottom-center')->error('Erro ao buscar produto' . $th->getMessage());

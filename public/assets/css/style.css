@@ -332,3 +332,7 @@ body {
     outline: 0;
     background-color: #428bca;
 }
+
+.selectpicker {
+    background-color: #343a40 !important;
+}

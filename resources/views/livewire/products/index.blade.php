@@ -33,7 +33,7 @@
                             <td class="align-middle">{{ $product->name }}</td>
                             <td class="align-middle">{{ $product->brand->name }}</td>
                             <td class="align-middle">{{ $product->category->name }}</td>
-                            <td class="align-middle">R$ {{ number_format($product->price, 2, ',', '.') }}</td>
+                            <td class="align-middle">R$ {{ $product->price }}</td>
                             <td class="align-middle">{{ $product->created_at->diffForHumans() }}</td>
                             <td class="align-middle text-center">
                                 <a href="{{ route('products.edit', $product->id) }}"
