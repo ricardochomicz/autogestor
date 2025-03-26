@@ -60,4 +60,19 @@ class UserService extends BaseService
             return $user;
         });
     }
+
+    public function countUsers(): int
+    {
+        $user = Auth::user();
+
+        return User::where(function ($query) use ($user) {
+            if ($user->admin_id === null) {
+                $query->where('admin_id', $user->id)
+                    ->orWhere('id', $user->id);
+            } else {
+                $query->where('id', $user->id);
+            }
+        })
+            ->count();
+    }
 }

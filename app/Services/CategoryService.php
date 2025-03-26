@@ -52,4 +52,20 @@ class CategoryService extends BaseService
             return true;
         });
     }
+
+    public function countCategories(): int
+    {
+        $user = Auth::user();
+
+        return Category::where(function ($query) use ($user) {
+            if ($user->admin_id === null) {
+                // Se for administrador, exibe os registros dos subordinados e os próprios
+                $query->where('user_id', $user->id)
+                    ->orWhereIn('user_id', $user->users()->pluck('id'));
+            } else {
+                // Se não for administrador, exibe apenas os próprios registros
+                $query->where('user_id', $user->id);
+            }
+        })->count();
+    }
 }
