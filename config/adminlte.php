@@ -152,7 +152,7 @@ return [
     |
     */
 
-    'layout_topnav' => true,
+    'layout_topnav' => null,
     'layout_boxed' => null,
     'layout_fixed_sidebar' => null,
     'layout_fixed_navbar' => null,
@@ -304,13 +304,19 @@ return [
             'text' => 'Usuários',
             'url' => 'users',
             'icon' => 'fas fa-fw fa-users mr-2',
-            // 'can' => 'manage-blog',
+            'can' => 'user_view',
         ],
         [
             'text' => 'Permissões',
             'url' => 'permissions',
             'icon' => 'fas fa-fw fa-clock mr-2',
-            // 'can' => 'manage-blog',
+            'can' => 'permission_view',
+        ],
+        [
+            'text' => 'Marcas',
+            'url' => 'brands',
+            'icon' => 'fas fa-fw fa-tag mr-2',
+            'can' => 'brand_view',
         ],
 
     ],

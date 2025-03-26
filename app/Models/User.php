@@ -49,6 +49,21 @@ class User extends Authenticatable
         ];
     }
 
+    public function brands(): HasMany
+    {
+        return $this->hasMany(Brand::class);
+    }
+
+    public function categories(): HasMany
+    {
+        return $this->hasMany(Category::class);
+    }
+
+    public function products(): HasMany
+    {
+        return $this->hasMany(Product::class);
+    }
+
     public function roles(): BelongsToMany
     {
         return $this->belongsToMany(Role::class, 'user_roles', 'user_id', 'role_id');
@@ -57,6 +72,13 @@ class User extends Authenticatable
     public function permissions(): BelongsToMany
     {
         return $this->belongsToMany(Permission::class, 'user_permissions', 'user_id', 'permission_id');
+    }
+
+    public function hasPermission($permission)
+    {
+        $permissions = $this->permissions()->pluck('name')->toArray();
+
+        return in_array($permission, $permissions);
     }
 
     // Relacionamento: um usuário pertence a um administrador
@@ -70,9 +92,6 @@ class User extends Authenticatable
     {
         return $this->hasMany(User::class, 'admin_id');
     }
-
-
-
 
     public function permissionsAvailable(array $filters = [])
     {

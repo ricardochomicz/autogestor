@@ -7,16 +7,35 @@ use Illuminate\Support\Facades\Auth;
 
 class UserService extends BaseService
 {
-    public function index()
+    public function index(array $filters = [])
     {
-        return User::paginate();
+        $user = Auth::user();
+
+        return User::filter($filters)
+            ->where(function ($query) use ($user) {
+                if ($user->admin_id === null) {
+                    // Se for admin, pode ver os subordinados
+                    $query->where('admin_id', $user->id)
+                        ->orWhere('id', $user->id); // Adiciona a verificação para o próprio admin
+                } else {
+                    // Se não for admin, só pode ver ele mesmo
+                    $query->where('id', $user->id);
+                }
+            })
+            ->paginate();
     }
 
     public function get(int $id)
     {
-        return User::where(function ($query) {
-            $query->where('admin_id', Auth::id())
-                ->orWhereNull('admin_id'); // Permite usuários sem admin_id
+        $user = Auth::user();
+
+        return User::where(function ($query) use ($user, $id) {
+            if ($user->admin_id === null) {
+                $query->where('admin_id', $user->id)
+                    ->orWhere('id', $user->id);
+            } else {
+                $query->where('id', $user->id);
+            }
         })
             ->where('id', $id)
             ->firstOrFail();

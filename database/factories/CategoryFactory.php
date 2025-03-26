@@ -18,6 +18,7 @@ class CategoryFactory extends Factory
     {
         return [
             'name' => $this->faker->word(),
+            'user_id' => 2,
             'created_at' => now(),
             'updated_at' => now()
         ];
