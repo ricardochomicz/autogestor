@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserPermissionController;
@@ -18,6 +19,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/users/{id}/permissions/create', [UserPermissionController::class, 'permissionsAvailable'])->name('user.permissions.available');
     Route::get('/users/{id}/permissions', [UserPermissionController::class, 'permissions'])->name('user.permissions');
 
+    Route::get('/permissions/create', [PermissionController::class, 'create'])->name('permissions.create')->middleware('check.permission:permission_create');
+    Route::post('/permissions', [PermissionController::class, 'store'])->name('permissions.store');
+    Route::get('/permissions/{id}/edit', [PermissionController::class, 'edit'])->name('permissions.edit')->middleware('check.permission:permission_edit');
+    Route::put('/permissions/{id}', [PermissionController::class, 'update'])->name('permissions.update');
+    Route::get('/permissions', [PermissionController::class, 'index'])->name('permissions.index')->middleware('check.permission:permission_view');
 
     Route::get('/users/create', [UserController::class, 'create'])->name('users.create')->middleware('check.permission:user_create');
     Route::post('/users', [UserController::class, 'store'])->name('users.store');

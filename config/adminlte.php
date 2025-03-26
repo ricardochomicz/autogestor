@@ -309,7 +309,7 @@ return [
         [
             'text' => 'Permissões',
             'url' => 'permissions',
-            'icon' => 'fas fa-fw fa-clock mr-2',
+            'icon' => 'fas fa-fw fa-lock mr-2',
             'can' => 'permission_view',
         ],
         [

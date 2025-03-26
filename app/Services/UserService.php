@@ -47,6 +47,7 @@ class UserService extends BaseService
             $data['password'] = bcrypt($data['password']);
             $data['admin_id'] = Auth::id();
             $user = User::create($data);
+            $user->roles()->attach('user');
             return $user;
         });
     }
