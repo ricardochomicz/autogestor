@@ -61,7 +61,8 @@ class UserController extends Controller
     {
         $user = $this->userService->get($id);
         if (!$user) {
-            return redirect()->route('users.index')->with('error', 'User not found');
+            flash()->option('position', 'bottom-center')->error('Usuário não encontrado');
+            return redirect()->route('users.index');
         }
         return view('pages.users.edit', [
             'user' => $user,

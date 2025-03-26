@@ -1,0 +1,70 @@
+services:
+  # Serviço para a aplicação Laravel
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: autogestor
+    restart: unless-stopped
+    working_dir: /var/www/auto_gestor
+    volumes:
+      - ./storage:/var/www/auto_gestor/storage
+      - ./bootstrap/cache:/var/www/auto_gestor/bootstrap/cache
+      - composer_cache:/root/.composer
+    environment:
+      MYSQL_DATABASE: autogestordb
+      MYSQL_ROOT_PASSWORD: rootsecret # Defina a senha do root
+      MYSQL_USER: user # Nome de um usuário normal
+      MYSQL_PASSWORD: pass # Senha desse usuário
+    depends_on:
+      - db
+    networks:
+      - laravel_network
+
+  # Serviço para o servidor web Nginx
+  webserver:
+    image: nginx:alpine
+    container_name: web-server
+    restart: unless-stopped
+    tty: true
+    working_dir: /var/www/auto_gestor
+    ports:
+      - "8080:80"
+    volumes:
+      - ./nginx/conf.d/app.conf:/etc/nginx/conf.d/app.conf
+      - ./storage:/var/www/auto_gestor/storage
+      - ./bootstrap/cache:/var/www/auto_gestor/bootstrap/cache
+    networks:
+      - laravel_network
+    depends_on:
+      - app
+      - db
+
+  # Serviço para o banco de dados MySQL
+  db:
+    image: mysql:8.0
+    container_name: autogestor-db
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: autogestordb
+      MYSQL_USER: user
+      MYSQL_PASSWORD: pass
+      MYSQL_ROOT_PASSWORD: rootsecret
+    volumes:
+      - db_data:/var/lib/mysql
+    ports:
+      - "3307:3306"
+    networks:
+      - laravel_network
+
+# Volumes para persistência de dados
+volumes:
+  db_data:
+    driver: local
+  composer_cache:
+    driver: local
+
+# Redes para comunicação entre os serviços
+networks:
+  laravel_network:
+    driver: bridge

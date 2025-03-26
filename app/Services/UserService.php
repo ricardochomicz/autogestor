@@ -38,7 +38,7 @@ class UserService extends BaseService
             }
         })
             ->where('id', $id)
-            ->firstOrFail();
+            ->first();
     }
 
     public function store(array $data)

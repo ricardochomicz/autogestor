@@ -52,8 +52,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::put('/products/{id}', [ProductController::class, 'update'])->name('products.update');
     Route::get('/products', [ProductController::class, 'index'])->name('products.index')->middleware('check.permission:product_view');
     Route::get('/products/{id}', [ProductController::class, 'destroy'])->name('products.destroy')->middleware('check.permission:product_destroy');
+
+
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 });
 
 Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
