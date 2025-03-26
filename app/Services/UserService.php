@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
@@ -22,7 +23,7 @@ class UserService extends BaseService
                     $query->where('id', $user->id);
                 }
             })
-            ->paginate();
+            ->paginate(6);
     }
 
     public function get(int $id)
@@ -47,7 +48,10 @@ class UserService extends BaseService
             $data['password'] = bcrypt($data['password']);
             $data['admin_id'] = Auth::id();
             $user = User::create($data);
-            $user->roles()->attach('user');
+            $role = Role::where('name', 'user')->first();
+            if ($role) {
+                $user->roles()->attach($role->id);
+            }
             return $user;
         });
     }
