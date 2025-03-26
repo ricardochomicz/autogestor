@@ -44,6 +44,8 @@
                                 @if (Gate::allows('is-admin'))
                                     <a href="{{ route('user.permissions', $user->id) }}"
                                         class="btn btn-sm btn-info">Permissões</a>
+                                    <a href="javascript:void(0)" class="btn btn-sm btn-danger"
+                                        onclick="destroy('{{ route('users.transfer', $user->id) }}', 'deletar', '{{ $user->name }}')">Excluir</a>
                                 @endif
                             </td>
                         </tr>

@@ -30,7 +30,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/users/{id}/edit', [UserController::class, 'edit'])->name('users.edit')->middleware('check.permission:user_edit');
     Route::put('/users/{id}', [UserController::class, 'update'])->name('users.update');
     Route::get('/users', [UserController::class, 'index'])->name('users.index')->middleware('check.permission:user_view');
-    Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('users.destroy');
+    Route::get('/users/{id}', [UserController::class, 'destroy'])->name('users.destroy')->middleware('check.permission:user_delete');
+    Route::get('/users/{id}/transfer', [UserController::class, 'showTransferPage'])->name('users.transfer');
+    Route::post('/users/{id}/transfer', [UserController::class, 'transferDataAndDelete'])->name('users.transferData');
 
     Route::get('/brands/create', [BrandController::class, 'create'])->name('brands.create')->middleware('check.permission:brand_create');
     Route::post('/brands', [BrandController::class, 'store'])->name('brands.store');

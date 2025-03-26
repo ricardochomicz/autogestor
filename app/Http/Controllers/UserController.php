@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UserRequest;
+use App\Models\Brand;
+use App\Models\Category;
+use App\Models\Product;
+use App\Models\User;
 use App\Services\UserService;
 use Illuminate\Http\Request;
 
@@ -87,11 +91,34 @@ class UserController extends Controller
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    public function destroy(int $id)
     {
-        //
+        try {
+            $this->userService->destroy($id);
+            flash()->option('position', 'bottom-center')->success('Usuário excluido com sucesso');
+            return redirect()->route('users.index');
+        } catch (\Throwable $th) {
+            //throw $th;
+            flash()->option('position', 'bottom-center')->error('Erro ao excluir usuário' . $th->getMessage());
+            return back();
+        }
+    }
+
+    public function showTransferPage($id)
+    {
+        $data = $this->userService->showTransferPage($id);
+        return view('pages.users.transfer', $data);
+    }
+
+    public function transferDataAndDelete(Request $request, int $id)
+    {
+        $this->userService->transferDataAndDelete(
+            $id,
+            $request->input('brands', []),
+            $request->input('categories', []),
+            $request->input('products', [])
+        );
+
+        return redirect()->route('users.index')->with('success', 'Dados transferidos e usuário excluído.');
     }
 }

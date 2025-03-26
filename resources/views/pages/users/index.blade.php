@@ -8,5 +8,5 @@
 
 @section('content')
     <livewire:users.index />
-
+    <x-modal-confirm title="Usuário" />
 @stop

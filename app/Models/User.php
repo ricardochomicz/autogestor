@@ -113,4 +113,9 @@ class User extends Authenticatable
                 });
         });
     }
+
+    public function transferBrandsTo(User $newOwner)
+    {
+        return Brand::where('user_id', $this->id)->update(['user_id' => $newOwner->id]);
+    }
 }
