@@ -318,6 +318,12 @@ return [
             'icon' => 'fas fa-fw fa-tag mr-2',
             'can' => 'brand_view',
         ],
+        [
+            'text' => 'Categorias',
+            'url' => 'categories',
+            'icon' => 'fas fa-fw fa-layer-group mr-2',
+            'can' => 'category_view',
+        ],
 
     ],
 

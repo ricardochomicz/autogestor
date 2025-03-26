@@ -8,7 +8,7 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title"> <span id="labelTitulo">Excluir</span> {{ $title }}</h5>
+                    <h5 class="modal-title"> <span id="labelTitle">Excluir</span> {{ $title }}</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -19,7 +19,7 @@
                     <p><b id="titleRegister"></b></p>
 
                     @if ($msg_destroy != '')
-                        <p id="msg_destroy"><i>{!! $msg_destory !!}</i></p>
+                        <p id="msg_destroy" class="text-warning">{!! $msg_destroy !!}</p>
                     @endif
 
                     @if ($type != '')
@@ -48,7 +48,7 @@
             label = label.toLowerCase();
             $('#labelTitle').html(label[0].toUpperCase() + label.substr(1));
             $('.labelBody').html(label);
-            $('#titleregister').html(register);
+            $('#titleRegister').html(register);
             let link = document.getElementById("btnConfirm");
             link.setAttribute('href', route);
             $('#confirmModal').modal('show');

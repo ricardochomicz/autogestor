@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Brand;
+use Illuminate\Support\Facades\Auth;
 
 class BrandService extends BaseService
 {
@@ -14,12 +15,13 @@ class BrandService extends BaseService
 
     public function get(int $id)
     {
-        return Brand::findOrFail($id);
+        return Brand::where('user_id', Auth::id())->find($id);
     }
 
     public function store(array $data)
     {
         return $this->executeTransaction(function () use ($data) {
+            $data['user_id'] = Auth::id();
             $brand = Brand::create($data);
             return $brand;
         });

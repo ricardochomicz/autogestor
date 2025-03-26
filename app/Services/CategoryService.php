@@ -14,12 +14,13 @@ class CategoryService extends BaseService
 
     public function get(int $id)
     {
-        return Category::where('id', Auth::id())->findOrFail($id);
+        return Category::where('user_id', Auth::id())->find($id);
     }
 
     public function store(array $data)
     {
         return $this->executeTransaction(function () use ($data) {
+            $data['user_id'] = Auth::id();
             $category = Category::create($data);
             return $category;
         });

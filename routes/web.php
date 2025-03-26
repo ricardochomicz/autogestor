@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BrandController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserPermissionController;
 use Illuminate\Support\Facades\Route;
@@ -30,6 +31,13 @@ Route::group(['middleware' => 'auth'], function () {
     Route::put('/brands/{id}', [BrandController::class, 'update'])->name('brands.update');
     Route::get('/brands', [BrandController::class, 'index'])->name('brands.index')->middleware('check.permission:brand_view');
     Route::get('/brands/{id}', [BrandController::class, 'destroy'])->name('brands.destroy');
+
+    Route::get('/categories/create', [CategoryController::class, 'create'])->name('categories.create')->middleware('check.permission:category_create');
+    Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');
+    Route::get('/categories/{id}/edit', [CategoryController::class, 'edit'])->name('categories.edit')->middleware('check.permission:category_edit');
+    Route::put('/categories/{id}', [CategoryController::class, 'update'])->name('categories.update');
+    Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index')->middleware('check.permission:category_view');
+    Route::get('/categories/{id}', [CategoryController::class, 'destroy'])->name('categories.destroy');
 });
 
 Auth::routes();
