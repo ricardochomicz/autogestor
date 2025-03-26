@@ -19,7 +19,7 @@ class BrandService extends BaseService
     {
         return Brand::where('user_id', Auth::id())
             ->filter($filters)
-            ->paginate();
+            ->paginate(10);
     }
 
     public function get(int $id)
