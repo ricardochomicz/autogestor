@@ -324,6 +324,12 @@ return [
             'icon' => 'fas fa-fw fa-layer-group mr-2',
             'can' => 'category_view',
         ],
+        [
+            'text' => 'Produtos',
+            'url' => 'products',
+            'icon' => 'fas fa-fw fa-barcode mr-2',
+            'can' => 'product_view',
+        ],
 
     ],
 

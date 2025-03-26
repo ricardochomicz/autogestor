@@ -14,10 +14,14 @@ class PermissionSeeder extends Seeder
     public function run(): void
     {
         $permissions = [
-            ['name' => 'products_view', 'label' => 'Visualizar produtos',],
-            ['name' => 'products_create', 'label' => 'Criar produtos',],
-            ['name' => 'products_edit', 'label' => 'Editar produtos'],
-            ['name' => 'products_delete', 'label' => 'Deletar produtos'],
+            ['name' => 'permission_view', 'label' => 'Visualizar permissões',],
+            ['name' => 'permission_create', 'label' => 'Criar permissão',],
+            ['name' => 'permission_edit', 'label' => 'Editar permissão'],
+
+            ['name' => 'product_view', 'label' => 'Visualizar produtos',],
+            ['name' => 'product_create', 'label' => 'Criar produtos',],
+            ['name' => 'product_edit', 'label' => 'Editar produtos'],
+            ['name' => 'product_delete', 'label' => 'Deletar produtos'],
 
             ['name' => 'user_view', 'label' => 'Visualizar usuários'],
             ['name' => 'user_create', 'label' => 'Criar usuários'],

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserPermissionController;
 use Illuminate\Support\Facades\Route;
@@ -38,6 +39,13 @@ Route::group(['middleware' => 'auth'], function () {
     Route::put('/categories/{id}', [CategoryController::class, 'update'])->name('categories.update');
     Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index')->middleware('check.permission:category_view');
     Route::get('/categories/{id}', [CategoryController::class, 'destroy'])->name('categories.destroy');
+
+    Route::get('/products/create', [ProductController::class, 'create'])->name('products.create')->middleware('check.permission:product_create');
+    Route::post('/products', [ProductController::class, 'store'])->name('products.store');
+    Route::get('/products/{id}/edit', [ProductController::class, 'edit'])->name('products.edit')->middleware('check.permission:product_edit');
+    Route::put('/products/{id}', [ProductController::class, 'update'])->name('products.update');
+    Route::get('/products', [ProductController::class, 'index'])->name('products.index')->middleware('check.permission:product_view');
+    Route::get('/products/{id}', [ProductController::class, 'destroy'])->name('products.destroy')->middleware('check.permission:product_destroy');
 });
 
 Auth::routes();

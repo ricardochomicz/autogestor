@@ -9,7 +9,9 @@ class CategoryService extends BaseService
 {
     public function index(array $filters = [])
     {
-        return Category::filter($filters)->paginate();
+        return Category::where('user_id', Auth::id())
+            ->filter($filters)
+            ->paginate();
     }
 
     public function get(int $id)
