@@ -39,21 +39,21 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/brands/{id}/edit', [BrandController::class, 'edit'])->name('brands.edit')->middleware('check.permission:brand_edit');
     Route::put('/brands/{id}', [BrandController::class, 'update'])->name('brands.update');
     Route::get('/brands', [BrandController::class, 'index'])->name('brands.index')->middleware('check.permission:brand_view');
-    Route::get('/brands/{id}', [BrandController::class, 'destroy'])->name('brands.destroy');
+    Route::get('/brands/{id}', [BrandController::class, 'destroy'])->name('brands.destroy')->middleware('check.permission:brand_delete');
 
     Route::get('/categories/create', [CategoryController::class, 'create'])->name('categories.create')->middleware('check.permission:category_create');
     Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');
     Route::get('/categories/{id}/edit', [CategoryController::class, 'edit'])->name('categories.edit')->middleware('check.permission:category_edit');
     Route::put('/categories/{id}', [CategoryController::class, 'update'])->name('categories.update');
     Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index')->middleware('check.permission:category_view');
-    Route::get('/categories/{id}', [CategoryController::class, 'destroy'])->name('categories.destroy');
+    Route::get('/categories/{id}', [CategoryController::class, 'destroy'])->name('categories.destroy')->middleware('check.permission:category_delete');
 
     Route::get('/products/create', [ProductController::class, 'create'])->name('products.create')->middleware('check.permission:product_create');
     Route::post('/products', [ProductController::class, 'store'])->name('products.store');
     Route::get('/products/{id}/edit', [ProductController::class, 'edit'])->name('products.edit')->middleware('check.permission:product_edit');
     Route::put('/products/{id}', [ProductController::class, 'update'])->name('products.update');
     Route::get('/products', [ProductController::class, 'index'])->name('products.index')->middleware('check.permission:product_view');
-    Route::get('/products/{id}', [ProductController::class, 'destroy'])->name('products.destroy')->middleware('check.permission:product_destroy');
+    Route::get('/products/{id}', [ProductController::class, 'destroy'])->name('products.destroy')->middleware('check.permission:product_delete');
 
 
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

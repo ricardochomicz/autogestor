@@ -117,29 +117,34 @@ class UserService extends BaseService
 
             // Transferir Brands
             foreach ($brandTransfers as $brandId => $newUserId) {
-                $brand = Brand::where('user_id', $id)->find($brandId);
-                if ($brand) {
-                    $brand->update(['user_id' => $newUserId]);
+                if ($newUserId) { // Verifica se o newUserId é válido
+                    $brand = Brand::where('user_id', $id)->find($brandId);
+                    if ($brand) {
+                        $brand->update(['user_id' => $newUserId]);
+                    }
                 }
             }
 
             // Transferir Categories
             foreach ($categoryTransfers as $categoryId => $newUserId) {
-                $category = Category::where('user_id', $id)->find($categoryId);
-                if ($category) {
-                    $category->update(['user_id' => $newUserId]);
+                if ($newUserId) {
+                    $category = Category::where('user_id', $id)->find($categoryId);
+                    if ($category) {
+                        $category->update(['user_id' => $newUserId]);
+                    }
                 }
             }
 
             // Transferir Products
             foreach ($productTransfers as $productId => $newUserId) {
-                $product = Product::where('user_id', $id)->find($productId);
-                if ($product) {
-                    $product->update(['user_id' => $newUserId]);
+                if ($newUserId) {
+                    $product = Product::where('user_id', $id)->find($productId);
+                    if ($product) {
+                        $product->update(['user_id' => $newUserId]);
+                    }
                 }
             }
 
-            // Excluir o usuário após a transferência
             $user->delete();
         });
     }
