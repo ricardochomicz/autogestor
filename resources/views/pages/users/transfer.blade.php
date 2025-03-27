@@ -69,7 +69,7 @@
             </div>
         </div>
 
-        <button type="submit" class="btn btn-primary mt-5">Transferir e Excluir Usuário</button>
+        <button type="submit" class="btn btn-primary mt-5">Transferir e/ou Excluir Usuário</button>
         <a href="{{ route('users.index') }}" class="btn btn-default mt-5">Voltar</a>
     </form>
 
