@@ -8,14 +8,15 @@ services:
     restart: unless-stopped
     working_dir: /var/www/auto_gestor
     volumes:
-      - ./storage:/var/www/auto_gestor/storage
-      - ./bootstrap/cache:/var/www/auto_gestor/bootstrap/cache
-      - composer_cache:/root/.composer
+      - .:/var/www/auto_gestor
     environment:
-      MYSQL_DATABASE: autogestordb
-      MYSQL_ROOT_PASSWORD: rootsecret # Defina a senha do root
-      MYSQL_USER: user # Nome de um usuário normal
-      MYSQL_PASSWORD: pass # Senha desse usuário
+      # Variáveis para o Laravel se conectar ao banco
+      DB_CONNECTION: mysql
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_DATABASE: autogestordb
+      DB_USERNAME: user
+      DB_PASSWORD: pass
     depends_on:
       - db
     networks:
@@ -31,9 +32,8 @@ services:
     ports:
       - "8080:80"
     volumes:
+      - .:/var/www/auto_gestor
       - ./nginx/conf.d/app.conf:/etc/nginx/conf.d/app.conf
-      - ./storage:/var/www/auto_gestor/storage
-      - ./bootstrap/cache:/var/www/auto_gestor/bootstrap/cache
     networks:
       - laravel_network
     depends_on:
