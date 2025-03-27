@@ -9,14 +9,6 @@ services:
     working_dir: /var/www/auto_gestor
     volumes:
       - .:/var/www/auto_gestor
-    environment:
-      # Variáveis para o Laravel se conectar ao banco
-      DB_CONNECTION: mysql
-      DB_HOST: db
-      DB_PORT: 3306
-      DB_DATABASE: autogestordb
-      DB_USERNAME: user
-      DB_PASSWORD: pass
     depends_on:
       - db
     networks:
